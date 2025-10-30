@@ -62,13 +62,62 @@ namespace CodeQuest
                 Console.Write(MsgErrorName);
                 name = Console.ReadLine();
             }
+            //REMOVE
+            //Skip initial cutscrene and temp name
+            /*
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(name + MsgAfterName);
             Console.WriteLine(MsgEndIntroduction);
             Thread.Sleep(5000);
             Console.Clear();
+            */
+            name = "Developer";
 
-            
+            //Menu (Chapter 1)
+            Console.WriteLine(MsgDay, day);
+            Console.WriteLine(MsgMenuCh1Opt1);
+            Console.WriteLine(MsgMenuCh1Opt2);
+            Console.WriteLine(MsgMenuCh1Opt3);
+            Console.WriteLine(MsgMenuCh1Opt4);
+            Console.WriteLine();
+            do
+            {
+                do
+                {
+                    Console.Write(MsgOption);
+                    menuOptionStr = Console.ReadLine();
+                } while (!int.TryParse(menuOptionStr, out menuOption));
+                switch (menuOption)
+                {
+                    case 1:
+                        Console.WriteLine(MsgStartTraining);
+                        int timeRand = rand.Next(1, 6);
+                        Thread.Sleep(timeRand * 1000);
+                        int expRand = rand.Next(1, 11);
+                        exp += expRand; 
+                        Console.WriteLine(MsgFinishedTraining, timeRand, expRand);
+                        /*
+                        switch (exp)
+                        {
+                            case >= 40:
+                                break;
+                            case <= 20 && > 30: 
+                                break;
+                            case <= 30 &&
+
+                        }
+                        */
+                        break;
+                    case 2:
+                        Console.WriteLine("asd");
+                        break;
+                    case 0:
+                        Console.WriteLine("Exit");
+                        break;
+
+                }
+            } while (menuOption != 0);
+
         }
     }
 }
