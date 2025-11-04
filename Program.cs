@@ -95,7 +95,7 @@ namespace CodeQuest
                     case 1:
                         Console.WriteLine(MsgStartTraining);
                         int timeRand = rand.Next(1, 25);
-                        Thread.Sleep(5000);
+                        Thread.Sleep(2000);
                         int expRand = rand.Next(1, 11);
                         int beforeExp = exp;
                         exp += expRand; 
