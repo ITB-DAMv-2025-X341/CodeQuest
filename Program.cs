@@ -24,10 +24,14 @@ namespace CodeQuest
         const string MsgAfterName = " eh, cool name.";
         const string MsgEndIntroduction = "Now, before start, you will need to train. Good luck out there...";
         //Main menu
+        const string MsgMenuName = "{0}: {1}";
+        const string MsgMenuExp = "Experience: {0}";
+        const string MsgMenuBits = "Bits: {0}";
         const string MsgMenuCh1Opt1 = "===MAIN MENU===";
         const string MsgMenuCh1Opt2 = "1. Train";
         const string MsgMenuCh1Opt3 = "2. Dungeon";
-        const string MsgMenuCh1Opt4 = "0. Exit";
+        const string MsgMenuCh1Opt4 = "3. Mine";
+        const string MsgMenuCh1Opt5 = "0. Exit";
         const string MsgOption = "Select option: >";
         //Training
         const string MsgStartTraining = "You started your training";
@@ -50,21 +54,31 @@ namespace CodeQuest
         const string MsgDungeonInput = "What code will you enter? >";
         const string MsgDungeonError = "The code introduced was incorrect. You have {0} tries remaining.";
 
+        //Chapter 3
+        const string MsgMineStart = "You started mining...";
+        const string MsgMineFinish = "You finished you mining and winned {0} bits.\nYou have {1} excavations remaining";
+
 
         public static void Main()
-        { 
+        {
             //Variables
-            int menuOption, level, exp, day, dungDoor, dungOpt;
+            int menuOption, level, exp, day; 
+            int dungOpt;
+            int bits;
+            string title;
             string name, menuOptionStr, dungeonOptionStr;
 
             //Initialize some variables
             exp = 0; 
             day = -1;
             level = 0;
-            dungDoor = 1;
+            bits = 0;
+
+            title = MsgLevel0;
 
             //Set random
             var rand = new Random();
+
 
             //Introduction
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -95,10 +109,14 @@ namespace CodeQuest
                 //Menu (Chapter 1)
                 Console.WriteLine();
                 Console.WriteLine(MsgDay, day);
+                Console.WriteLine(MsgMenuName, name, title);
+                Console.WriteLine(MsgMenuExp, exp);
+                Console.WriteLine(MsgMenuBits, bits);
                 Console.WriteLine(MsgMenuCh1Opt1);
                 Console.WriteLine(MsgMenuCh1Opt2);
                 Console.WriteLine(MsgMenuCh1Opt3);
                 Console.WriteLine(MsgMenuCh1Opt4);
+                Console.WriteLine(MsgMenuCh1Opt5);
                 Console.WriteLine();
                 do
                 {
@@ -123,6 +141,7 @@ namespace CodeQuest
                                 {
                                     level = 4;
                                     Console.WriteLine(MsgNewLevel, level, name, Level4);
+                                    title = MsgLevel4;
                                 }
                                 break;
                             case >= 35 and < 40:
@@ -131,6 +150,7 @@ namespace CodeQuest
                                 {
                                     level = 3;
                                     Console.WriteLine(MsgNewLevel, level, name, Level3);
+                                    title = MsgLevel3;
                                 }
                                 break;
                             case >= 30 and < 35:
@@ -139,6 +159,7 @@ namespace CodeQuest
                                 {
                                     level = 2;
                                     Console.WriteLine(MsgNewLevel, level, name, Level2);
+                                    title = MsgLevel2;
                                 }
                                 break;
                             case >= 20 and < 30:
@@ -147,6 +168,7 @@ namespace CodeQuest
                                 {
                                     level = 1;
                                     Console.WriteLine(MsgNewLevel, level, name, Level1);
+                                    title = MsgLevel1;
                                 }
                                 break;
                             case < 20:
@@ -213,6 +235,9 @@ namespace CodeQuest
                         {
                             Console.WriteLine(MsgDungeonWin);
                         }
+                        break;
+                    case 3:
+
                         break;
                     case 0:
                         Console.WriteLine("Exit");
