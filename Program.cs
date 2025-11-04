@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 
 namespace CodeQuest
 {
@@ -23,7 +26,7 @@ namespace CodeQuest
         //Main menu
         const string MsgMenuCh1Opt1 = "===MAIN MENU===";
         const string MsgMenuCh1Opt2 = "1. Train";
-        const string MsgMenuCh1Opt3 = "2. Fight (Locked)";
+        const string MsgMenuCh1Opt3 = "2. Dungeon";
         const string MsgMenuCh1Opt4 = "0. Exit";
         const string MsgOption = "Select option: >";
         //Training
@@ -37,16 +40,28 @@ namespace CodeQuest
         const string MsgLevel3 = "Wow! You can summon dragons without burning down the lab!";
         const string MsgLevel4 = "You have reached the rank of Arcane Master!";
 
+        //Chapter 2
+        const string MsgEnterDungeon = "You entered RAMón's dungeon.\nYou need to pass 3 doors with a code to win.\nWatch out for the dragon.";
+        const string MsgDungeonDoors = "You see a door with a code you need to get in";
+        const string MsgDungeonDoor2 = "You passed the first door, 2 more and you win";
+        const string MsgDungeonDoor3 = "You only need another door to win!";
+        const string MsgDungeonWin = "The dragon respects you. You have unlocked the next level!";
+        const string MsgDungeonLose = "The dragon has detected your presence and has expelled you from the server!";
+        const string MsgDungeonInput = "What code will you enter? >";
+        const string MsgDungeonError = "The code introduced was incorrect. You have {0} tries remaining.";
+
+
         public static void Main()
         { 
             //Variables
-            int menuOption, level, exp, day;
-            string name, menuOptionStr;
+            int menuOption, level, exp, day, dungDoor, dungOpt;
+            string name, menuOptionStr, dungeonOptionStr;
 
             //Initialize some variables
             exp = 0; 
             day = -1;
             level = 0;
+            dungDoor = 1;
 
             //Set random
             var rand = new Random();
@@ -141,7 +156,63 @@ namespace CodeQuest
                         Console.WriteLine(MsgLevel, exp, level.ToString());
                         break;
                     case 2:
-                        Console.WriteLine("asd");
+                        Console.WriteLine(MsgEnterDungeon);
+                        Thread.Sleep(1000);
+                        Console.WriteLine(MsgDungeonDoors);
+
+                        bool dungeonWin = true;
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            dungOpt = 0;
+                            int correctOption = rand.Next(1, 6);
+                            bool doorPassed = false;
+
+                            for (int attempt = 1; attempt <= 3; attempt++)
+                            {
+                                switch (i)
+                                {
+                                    case 2:
+                                        Console.WriteLine(MsgDungeonDoor2);
+                                        break;
+                                    case 3:
+                                        Console.WriteLine(MsgDungeonDoor3);
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                do
+                                {
+                                    Console.WriteLine(MsgDungeonInput);
+                                    dungeonOptionStr = Console.ReadLine();
+                                }
+                                while (!int.TryParse(dungeonOptionStr, out dungOpt));
+
+                                if (dungOpt == correctOption)
+                                {
+                                    doorPassed = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    if (attempt == 3)
+                                    {
+                                        dungeonWin = false;
+                                        Console.WriteLine(MsgDungeonLose);
+                                        break;
+                                    }
+                                    Console.WriteLine(MsgDungeonError, (3 - attempt));
+                                }
+                            }
+                            if (!doorPassed)
+                            {
+                                break;
+                            }
+                        }
+                        if (dungeonWin)
+                        {
+                            Console.WriteLine(MsgDungeonWin);
+                        }
                         break;
                     case 0:
                         Console.WriteLine("Exit");
