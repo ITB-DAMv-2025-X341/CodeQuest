@@ -190,7 +190,6 @@ namespace CodeQuest
                         {
                             dungOpt = 0;
                             int correctOption = rand.Next(1, 6);
-                            Console.WriteLine("Code: " + correctOption); // Development variable
                             bool doorPassed = false;
 
                             for (int attempt = 1; attempt <= 3; attempt++)
