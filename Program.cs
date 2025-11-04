@@ -48,7 +48,7 @@ namespace CodeQuest
         const string MsgDungeonDoor3 = "You only need another door to win!";
         const string MsgDungeonWin = "The dragon respects you. You have unlocked the next level!";
         const string MsgDungeonLose = "The dragon has detected your presence and has expelled you from the server!";
-        const string MsgDungeonInput = "What code will you enter? >";
+        const string MsgDungeonInput = "What code will you enter? (From 1 to 5) >";
         const string MsgDungeonError = "The code introduced was incorrect. You have {0} tries remaining.";
 
         //Chapter 3
@@ -178,7 +178,7 @@ namespace CodeQuest
                                 Console.WriteLine(MsgLevel0);
                                 break;
                         }
-                        Console.WriteLine(MsgLevel, exp, level.ToString());
+                        Console.WriteLine(MsgLevel, exp, level);
                         break;
                     case 2:
                         Console.WriteLine(MsgEnterDungeon);
@@ -208,7 +208,7 @@ namespace CodeQuest
 
                                 do
                                 {
-                                    Console.WriteLine(MsgDungeonInput);
+                                    Console.Write(MsgDungeonInput);
                                     dungeonOptionStr = Console.ReadLine();
                                 }
                                 while (!int.TryParse(dungeonOptionStr, out dungOpt));
@@ -216,7 +216,7 @@ namespace CodeQuest
                                 if (dungOpt == correctOption)
                                 {
                                     doorPassed = true;
-                                    break;
+                                    attempt = 4;
                                 }
                                 else
                                 {
@@ -224,14 +224,15 @@ namespace CodeQuest
                                     {
                                         dungeonWin = false;
                                         Console.WriteLine(MsgDungeonLose);
-                                        break;
+                                    } else
+                                    {
+                                        Console.WriteLine(MsgDungeonError, (3 - attempt));
                                     }
-                                    Console.WriteLine(MsgDungeonError, (3 - attempt));
                                 }
                             }
                             if (!doorPassed)
                             {
-                                break;
+                                i = 4;
                             }
                         }
                         if (dungeonWin)
